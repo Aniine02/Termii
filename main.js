@@ -1,25 +1,38 @@
+// 1. Dark/Light Mode với LocalStorage
 const themeToggleBtn = document.getElementById("theme-toggle");
-
-// 1. Kiểm tra xem lần trước người dùng đã chọn theme gì trong bộ nhớ máy
 const savedTheme = localStorage.getItem("theme");
 
 if (savedTheme === "dark") {
   document.body.classList.add("dark-mode");
-  themeToggleBtn.textContent = "Light";
+  if (themeToggleBtn) themeToggleBtn.textContent = "Light";
 }
 
-// 2. Lắng nghe sự kiện bấm nút
-themeToggleBtn.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    const isDark = document.body.classList.contains("dark-mode");
+    themeToggleBtn.textContent = isDark ? "Light" : "Dark";
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  });
+}
 
-  const isDark = document.body.classList.contains("dark-mode");
-  themeToggleBtn.textContent = isDark ? "Light" : "Dark";
+// 2. Đồng hồ UTC thời gian thực
+function updateClock() {
+  const clockElement = document.getElementById("utc-clock");
+  if (!clockElement) return;
 
-  // Lưu trạng thái hiện tại vào localStorage
-  localStorage.setItem("theme", isDark ? "dark" : "light");
-});
+  const now = new Date();
+  const hours = String(now.getUTCHours()).padStart(2, "0");
+  const minutes = String(now.getUTCMinutes()).padStart(2, "0");
+  const seconds = String(now.getUTCSeconds()).padStart(2, "0");
 
-// Tính năng sao chép vào Clipboard
+  clockElement.textContent = `UTC ${hours}:${minutes}:${seconds}`;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+
+// 3. Sao chép Fingerprint vào Clipboard
 const copyBtn = document.getElementById("copy-btn");
 const copyHint = copyBtn?.querySelector(".copy-hint");
 
@@ -28,15 +41,11 @@ if (copyBtn && copyHint) {
     const textToCopy = copyBtn.getAttribute("data-copy");
 
     try {
-      // Gọi API clipboard hiện đại của trình duyệt
       await navigator.clipboard.writeText(textToCopy);
-
-      // Đổi trạng thái hiển thị thông báo
       const originalText = copyHint.textContent;
       copyHint.textContent = "Copied!";
       copyBtn.style.borderColor = "#10b981";
 
-      // Sau 1.5 giây trả về trạng thái ban đầu
       setTimeout(() => {
         copyHint.textContent = originalText;
         copyBtn.style.borderColor = "";

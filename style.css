@@ -5,13 +5,12 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: #fcfcfc;
   color: #1a1a1a;
   line-height: 1.6;
   padding: 80px 24px;
   transition: background-color 0.3s ease, color 0.3s ease;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .container {
@@ -19,28 +18,67 @@ body {
   margin: 0 auto;
 }
 
+/* Typography & Labels */
+.tagline,
+.project-desc,
+.arrow,
+.theme-btn,
+.time-badge,
+.case-tag,
+.copy-label,
+.copy-btn,
+footer {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Header */
 .profile h1 {
   font-size: 2rem;
   font-weight: 600;
   letter-spacing: -0.02em;
 }
 
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .tagline {
   color: #666;
   font-size: 0.95rem;
   margin-top: 4px;
+  margin-bottom: 24px;
+}
+
+.theme-btn {
+  background: none;
+  border: 1px solid #ddd;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: #555;
+  transition: all 0.2s ease;
+}
+
+.theme-btn:hover {
+  background-color: #eee;
+  border-color: #bbb;
+}
+
+/* Section */
+.section {
   margin-bottom: 32px;
 }
 
-.section {
-  margin-bottom: 28px;
-}
-
 .section h2 {
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin-bottom: 8px;
-  color: #333;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+  margin-bottom: 12px;
 }
 
 .section p {
@@ -48,89 +86,16 @@ body {
   font-size: 0.95rem;
 }
 
-.links {
-  list-style: none;
-  margin-top: 8px;
-}
-
-.links li {
-  margin-bottom: 8px;
-}
-
-.links a {
-  color: #111;
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: opacity 0.2s;
-}
-
-.links a:hover {
-  opacity: 0.6;
-  text-decoration: underline;
-}
-
-footer {
-  margin-top: 48px;
-  font-size: 0.8rem;
-  color: #888;
-  border-top: 1px solid #eee;
-  padding-top: 16px;
-}
-
-/* Danh sách dự án */
-.project-list {
-  list-style: none;
-  margin-top: 12px;
-}
-
-.project-item {
+/* Status Badge & Clock */
+.now-section {
   display: flex;
-  align-items: baseline;
   justify-content: space-between;
-  padding: 8px 0;
-  color: #1a1a1a;
-  text-decoration: none;
-  border-bottom: 1px dashed #eee;
-  transition: all 0.2s ease;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
 }
 
-.project-title {
-  font-weight: 500;
-  font-size: 0.95rem;
-}
-
-.project-desc {
-  color: #888;
-  font-size: 0.85rem;
-  margin-left: auto;
-  margin-right: 12px;
-}
-
-.arrow {
-  color: #999;
-  font-size: 0.9rem;
-  display: inline-block;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-/* Hiệu ứng khi rê chuột vào */
-.project-item:hover .arrow {
-  color: #111;
-  transform: translate(2px, -2px); /* Đẩy mũi tên chéo lên trên một chút */
-}
-
-.project-item:hover .project-title {
-  color: #000;
-}
-
-.tagline,
-.project-desc,
-.arrow,
-.theme-btn,
-footer {
-  font-family: 'JetBrains Mono', monospace;
-}
-/* Status badge */
 .status-badge {
   display: inline-flex;
   align-items: center;
@@ -138,17 +103,15 @@ footer {
   padding: 6px 12px;
   border-radius: 999px;
   background-color: rgba(0, 0, 0, 0.04);
-  font-family: 'JetBrains Mono', monospace;
   font-size: 0.8rem;
   color: #555;
-  margin-bottom: 8px;
 }
 
 .status-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background-color: #10b981; /* Xanh lá */
+  background-color: #10b981;
   box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
   animation: pulse 2s infinite;
 }
@@ -168,87 +131,59 @@ footer {
   }
 }
 
-/* Biến thể dark mode cho status badge */
-body.dark-mode .status-badge {
-  background-color: rgba(255, 255, 255, 0.06);
-  color: #aaa;
+.time-badge {
+  font-size: 0.75rem;
+  color: #888;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.03);
 }
 
-/* Nút chuyển đổi Theme */
-.header-top {
+/* Project list */
+.project-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.project-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-}
-
-.theme-btn {
-  background: none;
-  border: 1px solid #ddd;
-  padding: 4px 10px;
-  border-radius: 14px;
-  font-size: 0.8rem;
-  color: #666;
-  cursor: pointer;
+  align-items: baseline;
+  text-decoration: none;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
   transition: all 0.2s ease;
 }
 
-.theme-btn:hover {
-  border-color: #999;
+.project-title {
+  color: #1a1a1a;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.project-desc {
+  color: #888;
+  font-size: 0.85rem;
+  flex-grow: 1;
+  margin-left: 16px;
+  margin-right: 12px;
+}
+
+.arrow {
+  color: #aaa;
+  font-size: 0.9rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.project-item:hover .arrow {
+  transform: translate(2px, -2px);
   color: #111;
 }
 
-/* Biến thể khi bật Dark Mode */
-body.dark-mode {
-  background-color: #0e0e10;
-  color: #e5e5e5;
-}
-
-body.dark-mode .tagline {
-  color: #888;
-}
-
-body.dark-mode .section h2 {
-  color: #bbb;
-}
-
-body.dark-mode .section p {
-  color: #ccc;
-}
-
-body.dark-mode .project-item {
-  color: #e5e5e5;
-  border-bottom-color: #222;
-}
-
-body.dark-mode .project-desc {
-  color: #777;
-}
-
-body.dark-mode .arrow {
-  color: #777;
-}
-
-body.dark-mode .project-item:hover .arrow {
-  color: #fff;
-}
-
-body.dark-mode .project-item:hover .project-title {
-  color: #fff;
-}
-
-body.dark-mode footer {
-  border-top-color: #222;
-  color: #666;
-}
-
-body.dark-mode .theme-btn {
-  border-color: #333;
-  color: #aaa;
-}
-
-body.dark-mode .theme-btn:hover {
-  border-color: #666;
-  color: #fff;
+.project-item:hover .project-title {
+  color: #000;
 }
 
 /* Case Studies */
@@ -277,7 +212,7 @@ body.dark-mode .theme-btn:hover {
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  list-style: none; /* Bỏ icon mũi tên tam giác mặc định */
+  list-style: none;
   user-select: none;
 }
 
@@ -292,7 +227,6 @@ body.dark-mode .theme-btn:hover {
 }
 
 .case-tag {
-  font-family: 'JetBrains Mono', monospace;
   font-size: 0.78rem;
   color: #777;
 }
@@ -306,7 +240,141 @@ body.dark-mode .theme-btn:hover {
   line-height: 1.5;
 }
 
-/* Dark mode cho Case Studies */
+/* Connect & Clipboard */
+.connect-group {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.links {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+}
+
+.links a {
+  text-decoration: none;
+  color: #1a1a1a;
+  font-size: 0.9rem;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+.copy-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.copy-label {
+  font-size: 0.78rem;
+  color: #777;
+}
+
+.copy-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: #f5f5f7;
+  border: 1px solid #e5e5e7;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #222;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  background-color: #eee;
+  border-color: #ccc;
+}
+
+.copy-hint {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* Footer */
+footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
+  color: #aaa;
+  font-size: 0.8rem;
+}
+
+/* ================= DARK MODE ================= */
+body.dark-mode {
+  background-color: #0d0d0f;
+  color: #e5e5e5;
+}
+
+body.dark-mode .tagline {
+  color: #888;
+}
+
+body.dark-mode .section h2 {
+  color: #666;
+}
+
+body.dark-mode .section p {
+  color: #bbb;
+}
+
+body.dark-mode .status-badge {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #aaa;
+}
+
+body.dark-mode .time-badge {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: #777;
+}
+
+body.dark-mode .project-item {
+  border-bottom-color: #222;
+}
+
+body.dark-mode .project-title {
+  color: #e5e5e5;
+}
+
+body.dark-mode .project-desc {
+  color: #777;
+}
+
+body.dark-mode .arrow {
+  color: #777;
+}
+
+body.dark-mode .project-item:hover .arrow {
+  color: #fff;
+}
+
+body.dark-mode .project-item:hover .project-title {
+  color: #fff;
+}
+
+body.dark-mode footer {
+  border-top-color: #222;
+  color: #666;
+}
+
+body.dark-mode .theme-btn {
+  border-color: #333;
+  color: #ddd;
+}
+
+body.dark-mode .theme-btn:hover {
+  background-color: #222;
+  color: #fff;
+}
+
 body.dark-mode .case-item {
   border-color: #222;
   background-color: #141416;
@@ -329,53 +397,11 @@ body.dark-mode .case-content {
   border-top-color: #262626;
   color: #aaa;
 }
-/* Connect section */
-.connect-group {
-  margin-top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+
+body.dark-mode .links a {
+  color: #e5e5e5;
 }
 
-.copy-box {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-top: 8px;
-}
-
-.copy-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78rem;
-  color: #777;
-}
-
-.copy-btn {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 12px;
-  background-color: #f5f5f7;
-  border: 1px solid #e5e5e7;
-  border-radius: 6px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85rem;
-  color: #222;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.copy-btn:hover {
-  background-color: #eee;
-  border-color: #ccc;
-}
-
-.copy-hint {
-  font-size: 0.75rem;
-  color: #888;
-}
-
-/* Dark mode cho copy box */
 body.dark-mode .copy-btn {
   background-color: #161618;
   border-color: #28282a;
@@ -390,7 +416,8 @@ body.dark-mode .copy-btn:hover {
 body.dark-mode .copy-hint {
   color: #666;
 }
-/* Responsive cho màn hình điện thoại (chiều ngang nhỏ hơn 640px) */
+
+/* ================= RESPONSIVE ================= */
 @media (max-width: 640px) {
   body {
     padding: 48px 20px;
