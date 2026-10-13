@@ -417,6 +417,289 @@ body.dark-mode .copy-hint {
   color: #666;
 }
 
+/* ================= HERO VISUAL CARD ================= */
+.hero-visual-card {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 32px;
+  border: 1px solid rgba(225, 29, 72, 0.25);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(225, 29, 72, 0.1);
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(115%) brightness(85%);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-visual-card:hover .hero-img {
+  transform: scale(1.05);
+}
+
+.visual-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 7, 9, 0.1) 0%, rgba(7, 7, 9, 0.85) 100%);
+  z-index: 1;
+}
+
+.visual-badge {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 2;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: #fda4af;
+  background: rgba(14, 11, 13, 0.7);
+  padding: 6px 12px;
+  border-radius: 6px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(244, 63, 94, 0.2);
+}
+
+/* ================= BENTO GRID ================= */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+  perspective: 1000px;
+}
+
+.bento-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 10px;
+  background: rgba(18, 14, 17, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  min-height: 140px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.bento-card.large {
+  grid-column: span 2;
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.08) 0%, rgba(14, 11, 13, 0.7) 100%);
+}
+
+.bento-card:hover {
+  border-color: rgba(225, 29, 72, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(225, 29, 72, 0.12);
+}
+
+.bento-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: #e11d48;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+.bento-card h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.bento-card p {
+  font-size: 0.85rem !important;
+  color: #999 !important;
+  line-height: 1.4;
+}
+
+.bento-arrow {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.bento-card:hover .bento-arrow {
+  color: #fda4af;
+  transform: translate(3px, -3px);
+}
+
+/* Lớp phủ đốm sáng spotlight bám theo chuột */
+.bento-card {
+  position: relative;
+  overflow: hidden; /* Giữ đốm sáng nằm gọn trong card */
+}
+
+.bento-card::before {
+  content: "";
+  position: absolute;
+  top: var(--mouse-y, -1000px);
+  left: var(--mouse-x, -1000px);
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(225, 29, 72, 0.22) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.bento-card:hover::before {
+  opacity: 1;
+}
+
+/* Đẩy nội dung chữ nổi lên trên lớp đốm sáng */
+.bento-content,
+.bento-arrow {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hiệu ứng trượt xuất hiện khi cuộn trang */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================= FILM GRAIN / NOISE TEXTURE ================= */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* ================= FLOATING DOCK ================= */
+.floating-dock {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 8px 18px;
+  background: rgba(14, 11, 13, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(225, 29, 72, 0.2);
+  border-radius: 999px;
+  z-index: 100;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.dock-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fda4af;
+  letter-spacing: 0.05em;
+}
+
+.dock-links {
+  display: flex;
+  gap: 16px;
+}
+
+.dock-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #888;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.dock-links a:hover {
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .bento-card.large {
+    grid-column: span 1;
+  }
+}
+
+/* ================= CUSTOM CYBER CURSOR ================= */
+html {
+  scroll-behavior: smooth; /* Cuộn trang mượt mà */
+}
+
+/* Ẩn con trỏ chuột hệ thống khi ở trên màn hình lớn */
+@media (min-width: 769px) {
+  body {
+    cursor: none;
+  }
+  a, button, summary, .bento-card {
+    cursor: none;
+  }
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background-color: #f43f5e;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease;
+}
+
+.cursor-outline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(244, 63, 94, 0.45);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Hiệu ứng khi rê chuột vào phần tử bấm được */
+.cursor-outline.hovered {
+  width: 48px;
+  height: 48px;
+  background-color: rgba(225, 29, 72, 0.1);
+  border-color: rgba(244, 63, 94, 0.8);
+}
+
 /* ================= RESPONSIVE ================= */
 @media (max-width: 640px) {
   body {
@@ -442,4 +725,87 @@ body.dark-mode .copy-hint {
     align-self: flex-end;
     margin-top: -18px;
   }
+}
+/* ================= VIBE DARK CRIMSON ROSE ================= */
+body {
+  background-color: #070709 !important;
+  color: #ececec;
+  overflow-x: hidden;
+}
+
+/* Canvas cánh hoa ghim toàn màn hình */
+#rose-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Ánh sáng đỏ ma mị lơ lửng ở trung tâm */
+.crimson-glow {
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(180, 20, 45, 0.22) 0%, rgba(90, 5, 20, 0.08) 45%, transparent 70%);
+  filter: blur(100px);
+  z-index: 0;
+  pointer-events: none;
+  animation: pulseGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.7; }
+  100% { transform: translate(-50%, -46%) scale(1.15); opacity: 1; }
+}
+
+/* Đưa nội dung nổi bật lên trên */
+.container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Chuyển tông màu Card sang kính mờ viền đỏ Ruby */
+.case-item,
+.copy-btn,
+.status-badge,
+.time-badge {
+  background: rgba(14, 11, 13, 0.65) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(220, 38, 38, 0.15) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.case-item:hover,
+.copy-btn:hover {
+  border-color: rgba(225, 29, 72, 0.6) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(225, 29, 72, 0.15);
+}
+
+/* Điểm nhấn màu hoa hồng đỏ cho tiêu đề và liên kết */
+.profile h1 {
+  background: linear-gradient(135deg, #ffffff 40%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.status-dot {
+  background-color: #e11d48 !important;
+  box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.7) !important;
+}
+
+.cursor {
+  color: #e11d48 !important;
+}
+
+.project-item:hover .arrow {
+  color: #fb7185 !important;
 }

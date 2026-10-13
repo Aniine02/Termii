@@ -11,6 +11,12 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    <!-- Custom Cyber Cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+    <!-- Khung Canvas tạo hiệu ứng cánh hoa hồng và bụi sáng 3D -->
+  <canvas id="rose-canvas"></canvas>
+  <div class="crimson-glow"></div>
   <main class="container">
     <header class="profile">
       <div class="header-top">
@@ -36,30 +42,50 @@
       </p>
     </section>
 
-    <section class="section">
-      <h2>Experiments & Works</h2>
-      <ul class="project-list">
-        <li>
-          <a href="#" class="project-item">
-            <span class="project-title">Proto-01: Light/Dark State</span>
-            <span class="project-desc">Pure DOM & Storage</span>
-            <span class="arrow">↗</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="project-item">
-            <span class="project-title">Proto-02: Kinetic Tokens</span>
-            <span class="project-desc">CSS Layout Specs</span>
-            <span class="arrow">↗</span>
-          </a>
-        </li>
-      </ul>
+    <!-- HERO VISUAL: Tâm điểm thị giác -->
+    <section class="hero-visual-card reveal-on-scroll">
+      <div class="visual-overlay"></div>
+      <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1000&q=80" alt="Crimson Rose" class="hero-img" />
+      <div class="visual-badge">OBJECT // 001 — THE SCARLET VOID</div>
     </section>
 
-    <section class="section">
+    <!-- BENTO SHOWCASE: Khối dự án dạng thẻ hình ảnh -->
+    <section class="section" id="archive">
+      <h2>Curated Archive</h2>
+      <div class="bento-grid">
+        <div class="bento-card large reveal-on-scroll">
+          <div class="bento-content">
+            <span class="bento-tag">PROTOTYPE 01</span>
+            <h3>Obsidian Core</h3>
+            <p>State persistence, real-time particle mechanics & kinetic layout tokens.</p>
+          </div>
+          <span class="bento-arrow">↗</span>
+        </div>
+
+        <div class="bento-card reveal-on-scroll">
+          <div class="bento-content">
+            <span class="bento-tag">SPECS</span>
+            <h3>Cascade Matrix</h3>
+            <p>Pure CSS layout rules without arbitrary utilities.</p>
+          </div>
+          <span class="bento-arrow">↗</span>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-content">
+            <span class="bento-tag">ENGINE</span>
+            <h3>Temporal Loop</h3>
+            <p>Synchronized UTC tick rate & delta-time physics.</p>
+          </div>
+          <span class="bento-arrow">↗</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="notes">
       <h2>Notes</h2>
       <div class="cases">
-        <details class="case-item">
+        <details class="case-item reveal-on-scroll">
           <summary>
             <span class="case-title">01 / The Cascade & Specificity</span>
             <span class="case-tag">Architecture</span>
@@ -87,7 +113,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="network">
       <h2>Network</h2>
       <div class="connect-group">
         <ul class="links">
