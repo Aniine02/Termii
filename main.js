@@ -1,18 +1,21 @@
-// 1. Dark/Light Mode với LocalStorage
+// 1. Dark/Light Mode Đồng Bộ với Vibe Mặc Định Nền Tối
 const themeToggleBtn = document.getElementById("theme-toggle");
 const savedTheme = localStorage.getItem("theme");
 
-if (savedTheme === "dark") {
-  document.body.classList.add("dark-mode");
+// Nếu người dùng đã từng chọn light mode trước đó
+if (savedTheme === "light") {
+  document.body.classList.add("light-mode");
+  if (themeToggleBtn) themeToggleBtn.textContent = "Dark";
+} else {
   if (themeToggleBtn) themeToggleBtn.textContent = "Light";
 }
 
 if (themeToggleBtn) {
   themeToggleBtn.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    const isDark = document.body.classList.contains("dark-mode");
-    themeToggleBtn.textContent = isDark ? "Light" : "Dark";
-    localStorage.setItem("theme", isDark ? "dark" : "light");
+    document.body.classList.toggle("light-mode");
+    const isLight = document.body.classList.contains("light-mode");
+    themeToggleBtn.textContent = isLight ? "Dark" : "Light";
+    localStorage.setItem("theme", isLight ? "light" : "dark");
   });
 }
 
@@ -191,36 +194,65 @@ const cursorDot = document.querySelector(".cursor-dot");
 const cursorOutline = document.querySelector(".cursor-outline");
 
 if (cursorDot && cursorOutline && window.innerWidth > 768) {
-  let mouseX = 0;
-  let mouseY = 0;
-  let outlineX = 0;
-  let outlineY = 0;
-
   window.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-
-    // Chấm nhỏ đi theo tức thì
-    cursorDot.style.left = `${mouseX}px`;
-    cursorDot.style.top = `${mouseY}px`;
+    const { clientX, clientY } = e;
+    cursorDot.style.left = `${clientX}px`;
+    cursorDot.style.top = `${clientY}px`;
+    cursorOutline.style.left = `${clientX}px`;
+    cursorOutline.style.top = `${clientY}px`;
   });
 
-  // Vòng ngoài đuổi theo với độ trễ chuyển động (Lerp)
-  function animateCursor() {
-    outlineX += (mouseX - outlineX) * 0.15;
-    outlineY += (mouseY - outlineY) * 0.15;
-
-    cursorOutline.style.left = `${outlineX}px`;
-    cursorOutline.style.top = `${outlineY}px`;
-
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-
   // Bắt sự kiện hover để phóng to vòng trỏ
-  const interactiveTargets = document.querySelectorAll("a, button, summary, .bento-card");
+  const interactiveTargets = document.querySelectorAll("a, button, summary, .bento-card, .brand-avatar-group");
   interactiveTargets.forEach((target) => {
     target.addEventListener("mouseenter", () => cursorOutline.classList.add("hovered"));
     target.addEventListener("mouseleave", () => cursorOutline.classList.remove("hovered"));
   });
 }
+
+// ================= INTERACTIVE BENTO MODAL =================
+const modal = document.getElementById("bento-modal");
+const modalClose = document.getElementById("modal-close");
+const modalTitle = document.getElementById("modal-title");
+const modalTag = document.getElementById("modal-tag");
+const modalDesc = document.getElementById("modal-desc");
+const bentoCardsList = document.querySelectorAll(".bento-card");
+
+function openModal(title, tag, desc) {
+  if (!modal) return;
+  modalTitle.textContent = title;
+  modalTag.textContent = tag;
+  modalDesc.textContent = desc;
+  modal.classList.add("is-active");
+  modal.setAttribute("aria-hidden", "false");
+}
+
+function closeModal() {
+  if (!modal) return;
+  modal.classList.remove("is-active");
+  modal.setAttribute("aria-hidden", "true");
+}
+
+bentoCardsList.forEach((card) => {
+  card.addEventListener("click", () => {
+    const title = card.querySelector("h3")?.textContent || "Prototype Node";
+    const tag = card.querySelector(".bento-tag")?.textContent || "SYSTEM";
+    const desc = card.querySelector("p")?.textContent || "";
+    openModal(title, tag, desc);
+  });
+});
+
+if (modalClose) modalClose.addEventListener("click", closeModal);
+
+// Đóng khi click ngoài hộp modal hoặc ấn phím Escape
+if (modal) {
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+}
+
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modal?.classList.contains("is-active")) {
+    closeModal();
+  }
+});
